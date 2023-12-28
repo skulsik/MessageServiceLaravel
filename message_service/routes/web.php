@@ -17,7 +17,9 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
-Route::get('/create_message', 'MainController@create_message');
+Route::get('/form_message', 'MainController@form_message')->name('form_message');
+
+Route::post('/create_message', 'MainController@create_message')->name('create_message');
 
 Route::get('/read_new_message', 'MainController@read_new_message');
 
