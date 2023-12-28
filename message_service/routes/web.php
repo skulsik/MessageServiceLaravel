@@ -23,7 +23,7 @@ Route::post('/create_message', 'MainController@create_message')->name('create_me
 
 Route::get('/read_new_message', 'MainController@read_new_message');
 
-Route::get('/all_messages', 'MainController@all_messages');
+Route::get('/all_messages', 'MainController@all_messages')->name('all_messages');
 
 Auth::routes();
 

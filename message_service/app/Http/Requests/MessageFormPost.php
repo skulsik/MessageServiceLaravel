@@ -33,7 +33,7 @@ class MessageFormPost extends FormRequest
     {
         return [
             'message_text' => 'required',
-            'client' => 'required',
+            'client_id' => 'required',
         ];
     }
 }
