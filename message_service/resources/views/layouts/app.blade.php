@@ -37,7 +37,7 @@
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
                     <li><a href="{{ route('form_message') }}" class="nav-link px-2">Создать сообщение</a></li>
-                    <li><a href="#" class="nav-link px-2">Сообщения</a></li>
+                    <li><a href="{{ route('all_messages') }}" class="nav-link px-2">Сообщения</a></li>
                     <li><a href="#" class="nav-link px-2">Новые сообщения</a></li>
                 </ul>
 

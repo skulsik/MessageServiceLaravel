@@ -26,12 +26,13 @@
                         <br>
                         <textarea name="message_text" id="message_text" placeholder="Введите ваше сообщение" rows="8" class="form-control"></textarea>
                         <br>
-                        <select name="client" id="client" class="form-control">
+                        <select name="client_id" id="client" class="form-control">
                             <option selected disabled hidden>Выбирите пользователя, которому хотите написать</option>
-                            <option value="s1">Чебурашка</option>
-                            <option value="s2">Крокодил Гена</option>
-                            <option value="s3">Шапокляк</option>
-                            <option value="s4">Крыса Лариса</option>
+                            @foreach($users_list as $user)
+                                @if($user->email != $email)
+                                    <option value="{{ $user->id }}">Имя пользователя:{{ $user->name }}. Почта: {{ $user->email }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <br>
                         <button type="submit" class="btn btn-primary">Отправить сообщение</button>
