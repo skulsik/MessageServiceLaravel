@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageFormPost;
 use App\MessageModel;
-use http\Client\Curl\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller{
     public function form_message(){
+        // Полоучает текущего пользователя
         $user_now = auth()->user();
-        $users = new \App\User();
-        return view('form_message', ['users_list' => $users->all(), 'email' => $user_now->email]);
+        // Получает почту, текущего пользователя
+        $email = $user_now->email;
+
+        // Получает всех пользователей
+        $users = \App\User::all();
+        return view('form_message', ['users_list' => $users, 'email' => $email]);
     }
 
     public function create_message(MessageFormPost $request){
+        // Полоучает текущего пользователя
         $user_now = auth()->user();
+        // Получает id, текущего пользователя
         $id_user_now = $user_now->id;
+
+        // Создает новое сообщение
         $message = new MessageModel();
         $message->message_text = $request->input('message_text');
         $message->user_id = $id_user_now;
@@ -26,25 +33,38 @@ class MainController extends Controller{
         $message->created_at = now();
         $message->save();
 
-        return redirect()->route('form_message');
+        return redirect()->route('all_messages');
     }
 
     public function read_new_message(){
-        return view('read_new_message');
+        // Получает текущего пользователя
+        $user_now = auth()->user();
+        // Получает id, текущего пользователя
+        $id_user_now = $user_now->id;
+
+        // Запрвшивает сообщения, которые принадлежат текущему пользователю
+        $count_messages = DB::table('message_models')->where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->where('read', true)->count();
+
+        return redirect()->route('all_messages', ['$count_messages' => $count_messages]);
     }
 
     public function all_messages(){
         // Получает текущего пользователя
         $user_now = auth()->user();
+        // Получает id, текущего пользователя
         $id_user_now = $user_now->id;
 
         // Получает всех пользователей, с сортировкой по id
         $users = \App\User::orderBy('id')->get();
 
         // Запрвшивает сообщения, которые принадлежат текущему пользователю
-        $messages = DB::table('message_models')->where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->get();
+        $messages = DB::table('message_models')->where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->orderBy('id', 'desc')->get();
         $messages_modified = array();
+        $count_new_messages = 0;
         foreach ($messages as $message){
+            // Считает количество непрочитанных
+            if ($message->read == true) $count_new_messages++;
+
             // Узнает с кем идет переписка
             if ($message->user_id == $id_user_now) $key = $message->client_id;
             else $key = $message->user_id;
@@ -58,6 +78,10 @@ class MainController extends Controller{
             }
         }
 
-        return view('all_messages', ['messages' => $messages_modified, 'user' => $user_now]);
+        return view('all_messages', [
+            'messages' => $messages_modified,
+            'user' => $user_now,
+            'count_new_messages' => $count_new_messages
+        ]);
     }
 }

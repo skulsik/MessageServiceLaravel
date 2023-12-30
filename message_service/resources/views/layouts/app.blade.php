@@ -35,10 +35,8 @@
                 </div>
             @else
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
                     <li><a href="{{ route('form_message') }}" class="nav-link px-2">Создать сообщение</a></li>
-                    <li><a href="{{ route('all_messages') }}" class="nav-link px-2">Сообщения</a></li>
-                    <li><a href="#" class="nav-link px-2">Новые сообщения</a></li>
+                    <li><a href="{{ route('all_messages') }}" class="nav-link px-2">Посмотреть сообщения</a></li>
                 </ul>
 
                 <div>
@@ -80,6 +78,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>
