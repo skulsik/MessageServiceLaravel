@@ -36,18 +36,6 @@ class MainController extends Controller{
         return redirect()->route('all_messages');
     }
 
-    public function read_new_message(){
-        // Получает текущего пользователя
-        $user_now = auth()->user();
-        // Получает id, текущего пользователя
-        $id_user_now = $user_now->id;
-
-        // Запрвшивает сообщения, которые принадлежат текущему пользователю
-        $count_messages = DB::table('message_models')->where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->where('read', true)->count();
-
-        return redirect()->route('all_messages', ['$count_messages' => $count_messages]);
-    }
-
     public function all_messages(){
         // Получает текущего пользователя
         $user_now = auth()->user();
