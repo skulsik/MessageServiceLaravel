@@ -47,7 +47,7 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <button type="submit" class="btn btn-primary">
-                                                        Login
+                                                        Войти
                                                     </button>
                                                 </td>
                                             </tr>
