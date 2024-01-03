@@ -34,26 +34,31 @@
                                     <!-- класс show делает пункт открытым -->
                                     <div id="item{{ $interlocutor[0]->id }}" class="accordion-collapse collapse" data-bs-parent="#menu">
                                         <div class="accordion-body">
-                                            @foreach($interlocutor[1] as $message)
+                                            @foreach($interlocutor[1] as $index => $message)
                                                 <div class="form-control" style="background-color:
-                                                               @if($message->user_id == $user->id)
+                                                               @if($message["user_id"] == $user->id)
                                                                    #f5f5f5;
                                                                @endif
                                                            ">
                                                     <div class="row">
-                                                    <div class="text-primary col-lg-8">
-                                                        @if($message->user_id == $user->id)
-                                                            Вы
-                                                        @else
-                                                            {{ $interlocutor[0]->name }}
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <span style="font-size: 10px;">Дата сообщения: <span class="text-muted">{{ $message->created_at }}</span></span>
-                                                    </div>
+                                                        <div class="text-primary col-lg-6">
+                                                            @if($message["user_id"] == $user->id)
+                                                                Вы
+                                                            @else
+                                                                {{ $interlocutor[0]->name }}
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            @if($message["read"] and $message["user_id"] != $user->id)
+                                                                <span class="text-danger" style="font-size: 10px;">новое</span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <span style="font-size: 10px;">Дата сообщения: <span class="text-muted">{{ $message["created_at"] }}</span></span>
+                                                        </div>
                                                     </div>
                                                     <hr>
-                                                    {{ $message->message_text }}
+                                                    {{ $message["message_text"] }}
                                                     <br><br>
                                                 </div>
                                                 <br>

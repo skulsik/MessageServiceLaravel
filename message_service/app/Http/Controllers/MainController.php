@@ -46,23 +46,35 @@ class MainController extends Controller{
         $users = \App\User::orderBy('id')->get();
 
         // Запрвшивает сообщения, которые принадлежат текущему пользователю
-        $messages = DB::table('message_models')->where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->orderBy('id', 'desc')->get();
+        $messages = MessageModel::where('user_id', $id_user_now)->orWhere('client_id', $id_user_now)->orderBy('id', 'desc')->get();
+
         $messages_modified = array();
         $count_new_messages = 0;
         foreach ($messages as $message){
-            // Считает количество непрочитанных
-            if ($message->read == true) $count_new_messages++;
-
             // Узнает с кем идет переписка
             if ($message->user_id == $id_user_now) $key = $message->client_id;
-            else $key = $message->user_id;
+            else{
+                $key = $message->user_id;
+
+                // Считает количество непрочитанных
+                if ($message->read) $count_new_messages++;
+            }
+
+            // Превращает объект в коллекцию(нужно для отображения непрочитанных сообщений)
+            $message_col = collect($message->toArray())->all();
 
             // Добавляет собеседника в массив, если его там нет. Собеседнику добавляет объект сообщения.
             if (!array_key_exists($key, $messages_modified)) {
-                $messages_modified[$key] = [$users[$key-1], [$message]];
+                $messages_modified[$key] = [$users[$key-1], [$message_col]];
             }
             else {
-                array_push($messages_modified[$key][1], $message);
+                array_push($messages_modified[$key][1], $message_col);
+            }
+
+            // Ставит статус сообщения false - прочитано
+            if ($message->client_id == $id_user_now and $message->read){
+                $message->read = false;
+                $message->save();
             }
         }
 
