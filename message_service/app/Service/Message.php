@@ -6,6 +6,7 @@ use App\MessageModel;
 
 class Message {
     function get_messages_user_auth(int $user_id) {
+        // получает список объектов (сообщения) принадлежащих авторизованному пользователяю
         $this->messages_owner_all = MessageModel::where('user_id', $user_id)->orWhere('client_id', $user_id)->orderBy('id', 'desc')->get();
     }
 
