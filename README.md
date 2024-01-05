@@ -20,7 +20,7 @@ ___
 ___
 
 ## Установка и настройка проекта
-+ Клонировать проект git@github.com:skulsik/MessageServiceLaravel.git
++ Клонировать проект ```git@github.com:skulsik/MessageServiceLaravel.git```
 + переход в рабочую папку, выполните команду в терминале: cd message_service
 + установка зависимостей, выполните команду в терминале: composer install
 + генерация ключа проекта, выполните команду в терминале: php artisan key:generate
