@@ -27,7 +27,7 @@
                         <textarea name="message_text" id="message_text" placeholder="Введите ваше сообщение" rows="8" class="form-control"></textarea>
                         <br>
                         <select name="client_id" id="client" class="form-control">
-                            <option selected disabled hidden>Выбирите пользователя, которому хотите написать</option>
+                            <option selected disabled hidden>Выберите пользователя, которому хотите написать</option>
                             @foreach($users_list as $user)
                                 @if($user->email != $email)
                                     <option value="{{ $user->id }}">Имя пользователя:{{ $user->name }}. Почта: {{ $user->email }}</option>
