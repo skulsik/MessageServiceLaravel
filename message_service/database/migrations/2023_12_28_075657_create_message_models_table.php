@@ -16,8 +16,10 @@ class CreateMessageModelsTable extends Migration
         Schema::create('message_models', function (Blueprint $table) {
             $table->increments('id');
             $table->text('message_text');
-            $table->integer('user_id');
-            $table->integer('client_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('users');
             $table->boolean('read');
             $table->dateTime('created_at');
         });
