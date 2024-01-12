@@ -8,8 +8,13 @@ class MessageModel extends Model
 {
     public $timestamps = false;
 
-    public function user()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'client_id');
     }
 }
