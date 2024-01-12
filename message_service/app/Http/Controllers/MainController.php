@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageFormPost;
+use App\MessageModel;
 use App\Service\Message;
 use App\Service\UserAuthGet;
 use App\Service\UsersGetAll;

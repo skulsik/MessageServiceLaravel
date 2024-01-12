@@ -20,7 +20,7 @@ class MessageFormPost extends FormRequest
     {
         return [
             'message_text.required' => 'Вы не ввели сообщение!',
-            'client.required'  => 'Выбирите пользователя, которому нужно отправить сообщение!',
+            'client_id.required'  => 'Выбирите пользователя, которому нужно отправить сообщение!',
         ];
     }
 
